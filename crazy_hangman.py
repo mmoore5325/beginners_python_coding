@@ -2,10 +2,10 @@ import random
 guessed_letters = []
 hangman_words = ["wonderful", "angry", "asfjaslkfjlaskfjlasfaa", "ilikepie", "feeeeeeeedme", "freeeeeeeeeeeeedoooooom", "itsfunctional", "butcouldbebetter", "dontcha", "luv", "dese", "werds"]
 
-def main(num):
+def main():
   the_word = hangman_word()
   rep = representation(the_word)
-  num -= 1
+  num = 6
   the_rules(num)
   print(rep)
   the_noose(num, the_word, rep)
@@ -158,4 +158,4 @@ def miss_five(num, the_word, rep):
      """)
   game(num, the_word, rep)
   
-main(7)
+main()
