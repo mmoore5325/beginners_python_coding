@@ -1,6 +1,6 @@
 import random
 guessed_letters = []
-hangman_words = ["wonderfulee"]
+hangman_words = ["wonderful", "angry", "asfjaslkfjlaskfjlasfaa", "ilikepie", "feeeeeeeedme", "freeeeeeeeeeeeedoooooom", "itsfunctional", "butcouldbebetter", "dontcha", "luv", "dese", "werds"]
 
 def main(num):
   the_word = hangman_word()
@@ -15,7 +15,7 @@ def game(num, the_word, rep):
     
     thisround = False
     try:
-      guess = str(input("Guess as if your life depends on it: "))
+      guess.lower() = str(input("Guess as if your life depends on it: ")).lower()
       if guess in guessed_letters:
         print("Are you stoopid or sumthin?")
         num -=1
