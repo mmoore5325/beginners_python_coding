@@ -1,62 +1,185 @@
 import random
+import os
 
-secret_num =random.randint(1, 30)
-
-def welcome(number):
-  print("Welcome to the guessing game.  You have {} guesses.  If you win, you live!.".format(number))
-  main(0)
-
-def main(number):
+guessed_letters = []
+hangman_words = ["wonderful", "angry", "asfjaslkfjlaskfjlasfaa", "ilikepie", "feeeeeeeedme", "freeeeeeeeeeeeedoooooom", "itsfunctional", "butcouldbebetter", "dontcha", "luv", "dese", "werds"]
+def main():
+  the_word = hangman_word()
+  rep = representation(the_word)
+  num = 6
+  the_rules(num)
+  print(rep)
+  the_noose(num, the_word, rep)
+  
+def game(num, the_word, rep): 
+    thisround = False
     try:
-      guess = int(input("Guess a number between 1 and 30: "))
-    except ValueError:
-      print("You fool...you wasted a guess...not good for you...")
-      guess_counting(number)
-    else:
-      if int(guess) == int(secret_num):
-        number += 1
-        print("""You got it!  The number was {}!
-        Bad news though...the real prize was you get shot as many guesses as it took.
-        Only 6 rounds in the gun, which is why you only got 6 guesses, so you might make it...
-        How many bullets do you think you can take to the head?...*click*""".format(secret_num))
-        print("""
-        ...................
-        ...................
-        ...................
-        """)
-        print("BOOM! " * number)
-        print("Looks like you're still alive...somehow....would you like to play again?")
-        play_again()
-      elif int(guess) > int(secret_num):
-        print("Nope.  Your guess was too high.  Guess again.")
-        guess_counting(number)
-      elif int(guess) < int(secret_num):
-        print("Nope.  Your guess was too low.  Guess again.")
-        guess_counting(number)
-      
-def guess_counting(number_of_guesses):
-  number_of_guesses +=1
-  if number_of_guesses == 6:
-    print("You wasted all your guesses.  Time to die.")
-  else:
-    print("You have used {} of 6 guesses.  Choose wisely".format(number_of_guesses))
-    main(number_of_guesses)
+      guess = str(input("Guess as if your life depends on it: ")).lower()
 
-def play_again():
-  again = input("Speak plainly...yes or no? ")
-  if again.lower() == "yes":
-    print("GREAT!  Let me get a bandaid for your nasty head wound real quick before we play again.")
-    welcome(6)
-  elif again.lower() == "no":
-    print("I'm so disappointed...")
-    russian_roulette = random.randint(3,6)
-    print("*click*")
-    print("BOOM! " * russian_roulette)
-  else:
-    print(again)
-    print("I won't put up with ignorance.")
-    russian_roulette = random.randint(3,6)
-    print("*click*")
-    print("BOOM! " * russian_roulette)
+      type_of_character = determining_correct_input(guess)
+      
+      if type_of_character == False:
+        incorrect_input(num, the_word, rep)
+      
+      if guess in guessed_letters:
+        print("Are you stoopid or sumthin?")
+        num -= 1
+        the_noose(num, the_word, rep)
+      else:  
+        guessed_letters.append(guess)
+      
+      i = 0
+      while i < len(the_word):
+         if the_word[i] == guess:
+            rep[i] = guess
+            thisround = True
+         i+=1
+      
+      if rep == the_word:
+        game_won(the_word)
+      elif thisround == True:
+        print(rep)
+        game(num, the_word, rep)
+      else:
+        num -=1
+        the_noose(num, the_word, rep)
     
-welcome(5)
+    except:
+      print("You must want to hang")
+      the_noose(num, the_word, rep)
+    
+def the_rules(num):
+  print("""
+  You have {} chances before you are hung.
+  There are no numbers.
+  Guessing numbers will be counted against you, and you will be hung.
+  Guessing letters multiple times will be counted against you.
+  If there are 3 e's in the word, guessing e 1 time will reveal them all.
+  So keep it simple stupid.""".format(num))
+  
+  print("""
+        Oh yeah, you don't want to end up like this guy:
+         _____
+         |    |
+         O    |
+        /|\   |
+        / \ __|___""")
+              
+def representation(the_word):   
+    rep = []
+    word_length = len(the_word)
+    while word_length > 0:
+      rep.append("X")
+      word_length -= 1
+      
+    return rep
+    
+def game_won(the_word):
+  word = ''.join(the_word)
+  print("You got it, the word was {}.".format(word))
+  
+def hangman_word():
+  hangman_word = random.sample(hangman_words, 1)
+  hangman_word = hangman_word[0]
+  the_word = list(hangman_word)
+  return the_word
+def the_noose(num, the_word, rep):
+  if int(num) == 0:
+    game_over()
+  elif int(num)== 1:
+    miss_five(num, the_word, rep)
+  elif int(num)== 2:
+    miss_four(num, the_word, rep)
+  elif int(num)== 3:
+    miss_three(num, the_word, rep)
+  elif int(num)== 4:
+    miss_two(num, the_word, rep)
+  elif int(num)== 5:
+    miss_one(num, the_word, rep)
+  elif int(num)== 6:
+    miss_zero(num, the_word, rep)
+  
+    
+def game_over():
+  print("""
+      _____
+      |    |
+      O    |
+     /|\   |
+     / \ __|___
+     
+ DIE DIE DIE DIE DIE""")
+  exit()
+  
+def miss_zero(num, the_word, rep):
+  print("""
+      _____
+      |    |
+           |
+           |
+         __|___
+     """)
+  game(num, the_word, rep)
+  
+def miss_one(num, the_word, rep):
+  print("""
+      _____
+      |    |
+           |
+           |
+       \ __|___
+     """)
+  game(num, the_word, rep)
+  
+def miss_two(num, the_word, rep):
+  print("""
+      _____
+      |    |
+           |
+           |
+     / \ __|___
+     """)
+  game(num, the_word, rep)
+  
+def miss_three(num, the_word, rep):
+  print("""
+      _____
+      |    |
+           |
+      |    |
+     / \ __|___
+     """)
+  game(num, the_word, rep)
+  
+def miss_four(num, the_word, rep):
+  print("""
+      _____
+      |    |
+           |
+     /|    |
+     / \ __|___
+     """)
+  game(num, the_word, rep)
+  
+def miss_five(num, the_word, rep):
+  print("""
+      _____
+      |    |
+           |
+     /|\   |
+     / \ __|___
+     """)
+  game(num, the_word, rep)
+  
+def determining_correct_input(guess):
+  try:
+    int(guess)
+    return False
+  except:
+    return True
+def incorrect_input(num, the_word, rep):
+  print("You must want to hang")
+  num -=1
+  the_noose(num, the_word, rep)
+      
+main()
