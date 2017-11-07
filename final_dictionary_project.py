@@ -43,10 +43,9 @@ def most_courses(dictionary):
   print(teacher, classes)
   
 def stats(dictionary):
-  teachers_class_list = []
+  teachers_class_list = list()
   i = 0
   for key, value in dictionary.items():
-    b = 1
     teachers_class_list.insert(i, [key])
     if isinstance(value, list):
       teachers_class_list[i].append(len(value))
@@ -55,9 +54,10 @@ def stats(dictionary):
     i+=1
   
   print(teachers_class_list)
+  return(teachers_class_list)
     
 
-dictionary = {"a": ["python", "cyclops"], "b":"c++", "c":["c", "e", "f"], "d":"ruby", "e":"javascript"}
+dictionary = {"John Love": ["python", "cyclops"], "Emmett Vernon":"c++", "Jacob Carroll":["class_of fixing stuff", "do it yourself idiot", "handyman"], "Michael Moore":["ruby", "calculus", "physics", "meaning of life"], "Maxx Maxx":["csss", "Phython"]}
 #teachers(dictionary)
 #num_courses(dictionary)
 #courses(dictionary)
