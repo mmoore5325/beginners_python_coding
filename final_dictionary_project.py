@@ -28,26 +28,23 @@ def courses(dictionary):
   
 def most_courses(dictionary):
   number_of_courses = dict()
+  teacher = ""
+  classes = 0
   for key in dictionary.keys():
     if isinstance(dictionary[key], list):
-      print(key, len(dictionary[key]))
+      number_of_courses[key] = len(dictionary[key])
     else:
-      print(key, "1")
-  #  for key in dictionary.keys():
-#      number_of_courses[key] = 
-#  for key in dictionary.keys():
-#    if key in number_of_courses[key]
-#      number_of_courses[key] = len(dictionary[key])
-#      print(number_of_courses)
-#    for value in dictionary.values():
-#      print(key, value)
-#      if isinstance(value, list):
-#        for classes in value:
-#          number_of_courses[key] += 1
-#      else:
-#        number_of_courses[key] += 1
-#        
+      number_of_courses[key] = 1
+  for key, value in number_of_courses.items():
+    if value > classes:
+      teacher = key
+      classes = value
   print(number_of_courses)
+  print(teacher, classes)
+  
+  
 dictionary = {"a": ["python", "cyclops"], "b":"c++", "c":["c", "e", "f"], "d":"ruby", "e":"javascript"}
 teachers(dictionary)
 num_courses(dictionary)
+courses(dictionary)
+most_courses(dictionary)
