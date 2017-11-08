@@ -14,9 +14,26 @@ COURSES = {
                     "functions", "input"}
 }
 
+
 def covers(topics):
+  course = []
+  for key, value in COURSES.items():
+    if value.intersection(topics):
+      course.append(key)
+  return(course)
+
+def covers_all(arg):
     course = []
     for key, value in COURSES.items():
-        if value.intersection(topics):
+        if arg.issubset(value):
             course.append(key)
     return(course)
+#    return(course)
+  
+#topics = {"variables"}
+#covers(topics)
+
+all_topics = {"Ruby", "strings", "floats",
+              "integers", "functions", "input"}
+
+covers_all(all_topics)
