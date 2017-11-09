@@ -44,14 +44,17 @@ print(random_starting_spot)
 print(random_starting_spot[0])
 x = random_starting_spot
 def get_locations():
-  monster = None
-  door = None
-  player = None
-  
-  return(monster, door, player) #return tuple
+  monster = random.sample(CELLS, 1)
+  door = random.sample(CELLS, 1)
+  player = random.sample(CELLS, 1)
+  print("PLAYER = {}".format(player))
+  print("DOOR = {}".format(door))
+  print("MONSTER = {}".format(monster))
+  return(player, monster, door) #return tuple
 
 def move(player, move):
   # get location
+  
   # if move = left, x-1
   # if move = right, x + 1
   # if move = up, y - 1
@@ -84,16 +87,22 @@ def get_move(player):
   # x == 0, cant move left
   
 while True:
-  print("Welcome, you're current in room {}".format(random_starting_spot))  # FILL WITH PLAYER POSITION
-  print("You can move {}".format(get_move(random_starting_spot[0]))) # FILL WITH AVAILABLE MOVES
+  player = get_locations()[0]
+  monster = get_locations()[1]
+  door = get_locations()[2]
+  position = get_move(player[0])
+  print("Welcome, you're current in room {}".format(player[0]))  # FILL WITH PLAYER POSITION
+  print("You can move {}".format(position)) # FILL WITH AVAILABLE MOVES
   print("Enter QUIT to quit")
 #  
   move = input("< ")
   move = move.upper()
   
+  
   if move == 'QUIT':
     break
-    
+  
+  
 
     # Good move?  Change player position
     # Bad move? Let player know and don't change anything
