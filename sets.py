@@ -1,3 +1,25 @@
+#### MY NOTES ON SETS ####
+# find the difference between 2 sets
+# set1.difference(set2)
+# set1 - set2
+# set2.difference(set1)
+# set2 - set1
+
+# Unique to each side
+# set1 ^ set2
+# set1.symmetric_difference(set2)
+
+# Find items that are common from each side
+# set1.intersection(set2)
+# set1 & set2
+
+# to join them
+# set1.union(set2)
+# set1 | set2
+
+# Same as update but set1.update(set2) permanently changes set1
+
+
 COURSES = {
     "Python Basics": {"Python", "functions", "variables",
                       "booleans", "integers", "floats",
